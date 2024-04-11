@@ -798,6 +798,12 @@ impl Texture2D {
     }
 }
 
+impl Drop for Texture2D {
+    fn drop(&mut self) {
+        get_context().quad_context.delete_texture(self.raw_miniquad_id());
+    } 
+}
+
 pub(crate) struct Batcher {
     unbatched: Vec<Texture2D>,
     atlas: crate::text::atlas::Atlas,
